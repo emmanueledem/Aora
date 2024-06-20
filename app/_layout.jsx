@@ -17,13 +17,6 @@ const RootLayout = () => {
     PoppinsThin: require("../assets/fonts/Poppins-Thin.ttf"),
   });
 
-  // useEffect(() => {
-  //   if (error) throw error;
-  //   if (fontsLoaded) throw SplashScreen.hideAsync();
-  // }, [fontsLoaded, error]);
-
-  // if (!fontsLoaded && !error) throw error;
-
   if (!fontsLoaded && !error) {
     return (
       <View>
@@ -36,7 +29,6 @@ const RootLayout = () => {
   return (
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="profile" options={{ headerShown: true }} />
     </Stack>
   );
 };
