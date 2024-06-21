@@ -1,8 +1,18 @@
 import React from "react";
 import { View } from "react-native";
+import { Stack, SplashScreen } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 
 const AuthLayout = () => {
-  return <View></View>;
+  return (
+    <>
+      <Stack>
+        <Stack.Screen name="sign-in" options={{ headerShown: false }} />
+        <Stack.Screen name="sign-up" options={{ headerShown: false }} />
+      </Stack>
+      <StatusBar style="light" backgroundColor="#161622" />
+    </>
+  );
 };
 
 export default AuthLayout;
