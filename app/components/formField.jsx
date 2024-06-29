@@ -19,10 +19,11 @@ const FormField = ({
         <TextInput
           className="flex-1 text-white font-psemibold text-base"
           value={value}
+          autoCapitalize="none"
           keyboardType={keyboardType}
           placeholder={placeholder}
           placeholderTextColor="#7b7b8b"
-          onChange={handleChangeText}
+          onChangeText={handleChangeText}
           secureTextEntry={title === "Password" && !showPasswod}
         />
 

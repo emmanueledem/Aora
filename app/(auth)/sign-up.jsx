@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Image, ScrollView } from "react-native";
+import { View, Text, Image, ScrollView, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { images } from "../../constants";
@@ -7,12 +7,35 @@ import { images } from "../../constants";
 import FormField from "../components/formField";
 
 import BusyButton from "../components/busyButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
+import { createUser } from "../../lib/appwrite";
 
 const SignUp = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [form, setForm] = useState({ username: "", email: "", password: "" });
 
-  const submit = () => {};
+  const submit = async () => {
+    if (!form.username || !form.email || !form.password) {
+      Alert.alert("Error", "Please fill all fields");
+    } else {
+      setIsSubmitting(true);
+      try {
+        const result = await createUser(
+          form.email,
+          form.password,
+          form.username
+        );
+        // return result;
+        router.replace("/home");
+      } catch (error) {
+        console.log(error.message);
+        Alert.alert("Error", error.message);
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
+  };
 
   return (
     <SafeAreaView className="bg-primary h-full  ">
@@ -37,7 +60,9 @@ const SignUp = () => {
             otherStyles={"mt-7"}
             title={"Email"}
             value={form.email}
-            handleChangeText={(e) => setForm({ ...form, email: e })}
+            handleChangeText={(e) => {
+              setForm({ ...form, email: e });
+            }}
             keyBoardType="email-address"
             placeholder={"Enter email"}
           />
@@ -53,7 +78,8 @@ const SignUp = () => {
           <BusyButton
             containerStyles={"mt-7"}
             onpress={submit}
-            text={"Log In"}
+            text={"Sign Up"}
+            isLoading={isSubmitting}
           />
           <View className="flex-row mt-7 justify-center">
             <Text className="text-white text-lg text-gray-100 text-font-regular">
