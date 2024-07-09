@@ -9,14 +9,16 @@ import FormField from "../components/formField";
 import BusyButton from "../components/busyButton";
 import { Link, router } from "expo-router";
 import { createUser } from "../../lib/appwrite";
+import { useGlobalContext } from "../../context/globalprovider";
 
 const SignUp = () => {
+  const { SetUser, SetIsLoggedIn } = useGlobalContext();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [form, setForm] = useState({ username: "", email: "", password: "" });
 
   const submit = async () => {
-    if (!form.username || !form.email || !form.password) {
+    if (form.username === "" || form.email === "" || form.password === "") {
       Alert.alert("Error", "Please fill all fields");
     } else {
       setIsSubmitting(true);
@@ -26,7 +28,10 @@ const SignUp = () => {
           form.password,
           form.username
         );
-        // return result;
+
+        SetUser(result);
+        SetIsLoggedIn(true);
+
         router.replace("/home");
       } catch (error) {
         console.log(error.message);

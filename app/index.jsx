@@ -4,8 +4,14 @@ import { Redirect, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../constants";
 import BusyButton from "./components/busyButton";
+import { useGlobalContext } from "../context/globalprovider";
 
 export default function App() {
+  const { isLoading, isLoggedIn } = useGlobalContext();
+  console.log("loading is " + isLoading);
+  console.log("logged in is " + isLoggedIn);
+  if (!isLoading && isLoggedIn) return <Redirect href={"/home"} />;
+
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView contentContainerStyle={{ height: "100%" }}>
