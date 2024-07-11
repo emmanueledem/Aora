@@ -25,7 +25,6 @@ const GlobalProvider = ({ children }) => {
           SetIsLoggedIn(false);
           SetUser(null);
         }
-        console.log("This is the " + res.name);
       })
       .catch((error) => {
         console.log(error);
