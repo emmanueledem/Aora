@@ -55,7 +55,7 @@ const VideoCard = ({
           shouldPlay
           onPlaybackStatusUpdate={(status) => {
             if (status.didJustFinish) {
-              SetPlay(false);
+              SetPlaying(false);
             }
           }}
         />

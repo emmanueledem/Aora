@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 
 const BusyButton = ({
   text,
@@ -17,11 +17,15 @@ const BusyButton = ({
       }`}
       disabled={isLoading}
     >
-      <Text
-        className={`text-bold px-20 py-5 text-[16px]  font-bold ${textStyles} `}
-      >
-        {text}
-      </Text>
+      {isLoading ? (
+        <ActivityIndicator color="#161622" size={"large"} />
+      ) : (
+        <Text
+          className={`text-bold px-20 py-5 text-[16px]  font-bold ${textStyles} `}
+        >
+          {text}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 };
